@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><style>
+@font-face { font-family:'Source Sans 3'; font-weight:400; src:url('file:///home/claude/fonts/SourceSans3-400.ttf'); }
+@font-face { font-family:'Source Sans 3'; font-weight:500; src:url('file:///home/claude/fonts/SourceSans3-500.ttf'); }
+@font-face { font-family:'Source Sans 3'; font-weight:600; src:url('file:///home/claude/fonts/SourceSans3-600.ttf'); }
+@font-face { font-family:'Source Sans 3'; font-weight:700; src:url('file:///home/claude/fonts/SourceSans3-700.ttf'); }
+
+@page { size:A4; margin:16mm 15mm; }
+@page darkpage { size:A4; margin:0; }
+
+* { box-sizing:border-box; -weasy-hyphens:none; }
+html { font-family:'Source Sans 3',sans-serif; color:#0F172A; font-size:13px; line-height:1.5; }
+body { margin:0; }
+.tnum { font-feature-settings:'tnum' 1,'lnum' 1; }
+
+h1,h2,h3 { font-weight:600; margin:0; color:#0F172A; }
+.eyebrow { font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:#034BDC; }
+.muted { color:#64748B; }
+.sec { color:#475569; }
+.rule { height:1px; background:#E2E8F0; border:0; margin:0; }
+
+/* Cover */
+.cover-tag { display:inline-block; margin-bottom:14px; }
+.cover h1 { font-size:31px; line-height:1.15; letter-spacing:-.01em; }
+.cover .lede { font-size:16px; color:#475569; max-width:150mm; margin-top:8px; }
+.pos { display:grid; grid-template-columns:1fr 1fr; gap:0; margin-top:22px;
+        border:1px solid #E2E8F0; border-radius:12px; overflow:hidden; }
+.pos > div { padding:16px 18px; }
+.pos > div + div { border-left:1px solid #E2E8F0; }
+.pos .k { font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:#64748B; margin-bottom:6px; }
+.pill-row { display:flex; flex-wrap:wrap; gap:8px; }
+.pill { font-size:12px; font-weight:500; padding:5px 11px; border-radius:999px;
+         background:#F1F5F9; color:#0F172A; border:1px solid #E2E8F0; }
+.primary-hero { margin-top:22px; display:flex; align-items:stretch; gap:0; border-radius:12px; overflow:hidden; border:1px solid #E2E8F0; }
+.primary-hero .block { background:#034BDC; color:#fff; padding:20px 22px; min-width:60mm; }
+.primary-hero .block .lbl { font-size:11px; letter-spacing:.12em; text-transform:uppercase; opacity:.8; font-weight:600; }
+.primary-hero .block .hex { font-size:26px; font-weight:600; margin-top:4px; }
+.primary-hero .desc { padding:20px 22px; color:#475569; font-size:13px; }
+
+.page-head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px; }
+.page-head .n { font-size:12px; font-weight:600; color:#94A3B8; }
+.section-title { font-size:20px; }
+.section-sub { color:#64748B; font-size:12.5px; margin-top:2px; margin-bottom:16px; }
+
+.group-label { display:flex; align-items:center; gap:10px; margin:18px 0 10px; }
+.group-label .t { font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:#475569; white-space:nowrap; }
+.group-label .l { flex:1; height:1px; background:#E2E8F0; }
+.mode-tag { font-size:10px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+            padding:2px 8px; border-radius:999px; border:1px solid #E2E8F0; color:#64748B; }
+
+.sw-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+.sw { border-radius:10px; overflow:hidden; border:1px solid #E2E8F0; }
+.sw-chip { height:46px; }
+.sw-meta { padding:8px 10px; }
+.sw-name { font-size:11.5px; font-weight:600; line-height:1.25; }
+.sw-hex { font-size:11px; font-weight:500; color:#64748B; margin-top:2px; font-feature-settings:'tnum' 1; }
+.sw-dark { background:#1E293B; border-color:#334155; }
+.sw-dark .sw-name { color:#F1F5F9; }
+.sw-dark .sw-hex { color:#94A3B8; }
+.sw-dark .sw-chip { border-bottom:1px solid #334155; }
+
+/* Type specimen */
+.type-row { display:flex; align-items:baseline; gap:16px; padding:12px 0; border-bottom:1px solid #F1F5F9; }
+.type-row .meta { width:44mm; flex:0 0 44mm; }
+.type-row .meta .role { font-size:12px; font-weight:600; }
+.type-row .meta .spec { font-size:11px; color:#64748B; }
+.type-row .sample { flex:1; color:#0F172A; }
+.figs { margin-top:18px; border:1px solid #E2E8F0; border-radius:12px; padding:16px 18px; background:#F8FAFC; }
+.figs .row { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px dashed #E2E8F0; font-size:14px; }
+.figs .row:last-child { border-bottom:0; }
+
+/* Sample dashboard (shared structure) */
+.frame { padding:16mm 15mm; }
+.frame.dark { background:#0F172A; color:#F1F5F9; min-height:297mm; }
+.demo-tag { font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; }
+.demo-tag.d { color:#60A5FA; }
+.demo-tag.l { color:#034BDC; }
+.demo-h { font-size:18px; font-weight:600; margin:3px 0 14px; }
+.demo-h.dark { color:#F1F5F9; }
+
+.appbar { display:flex; align-items:center; justify-content:space-between;
+           padding:12px 16px; border-radius:12px; }
+.appbar .brand { display:flex; align-items:center; gap:10px; font-weight:600; font-size:14px; }
+.dot { width:22px; height:22px; border-radius:6px; }
+.appbar .right { display:flex; align-items:center; gap:10px; }
+.btn { font-family:'Source Sans 3'; font-size:12.5px; font-weight:600; padding:8px 14px; border-radius:8px; border:1px solid transparent; }
+.btn-primary-l { background:#034BDC; color:#fff; }
+.btn-ghost-l { background:#fff; color:#0F172A; border-color:#E2E8F0; }
+.btn-primary-d { background:#60A5FA; color:#0F172A; }
+.btn-ghost-d { background:#1E293B; color:#F1F5F9; border-color:#475569; }
+.themetag { font-size:11px; font-weight:600; padding:4px 10px; border-radius:999px; }
+
+.kpis { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:12px; }
+.card { border-radius:12px; padding:14px 15px; }
+.card-l { background:#F8FAFC; border:1px solid #E2E8F0; }
+.card-d { background:#1E293B; border:1px solid #334155; }
+.kpi-label { font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; }
+.kpi-num { font-size:26px; font-weight:600; margin-top:6px; font-feature-settings:'tnum' 1,'lnum' 1; }
+.delta { font-size:12px; font-weight:600; font-feature-settings:'tnum' 1; }
+
+.panel { border-radius:12px; margin-top:12px; overflow:hidden; }
+.panel-l { border:1px solid #E2E8F0; }
+.panel-d { border:1px solid #334155; }
+.panel-head { padding:11px 15px; font-size:13px; font-weight:600; }
+.panel-head-l { background:#F1F5F9; border-bottom:1px solid #E2E8F0; }
+.panel-head-d { background:#334155; border-bottom:1px solid #475569; }
+
+table { width:100%; border-collapse:collapse; font-size:12.5px; }
+th { text-align:left; font-weight:600; font-size:11px; letter-spacing:.04em; text-transform:uppercase; padding:9px 15px; }
+td { padding:10px 15px; }
+.num { text-align:right; font-feature-settings:'tnum' 1,'lnum' 1; }
+.th-l { color:#64748B; background:#F8FAFC; }
+.tr-l td { border-top:1px solid #E2E8F0; color:#0F172A; }
+.th-d { color:#94A3B8; background:#1E293B; }
+.tr-d td { border-top:1px solid #334155; color:#F1F5F9; }
+
+.chip { display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:600; padding:3px 9px; border-radius:999px; }
+.chip .cd { width:7px; height:7px; border-radius:999px; }
+
+.ai-strip { display:grid; grid-template-columns:1.3fr 1fr; gap:12px; margin-top:12px; }
+.ai-note { border-radius:12px; padding:14px 15px; font-size:12.5px; line-height:1.5; }
+.ai-flags { display:flex; flex-direction:column; gap:8px; }
+.flag { display:flex; align-items:center; gap:9px; padding:9px 12px; border-radius:10px; font-size:12px; font-weight:600; }
+.flag .fdot { width:10px; height:10px; border-radius:3px; flex:0 0 auto; }
+
+.comp-row { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:10px; }
+.input { font-size:12.5px; padding:8px 12px; border-radius:8px; min-width:52mm; }
+.input-l { background:#fff; border:1px solid #E2E8F0; color:#64748B; }
+.input-d { background:#0F172A; border:1px solid #475569; color:#94A3B8; }
+.footer { margin-top:22px; font-size:10.5px; color:#94A3B8; display:flex; justify-content:space-between; }
+.footer.dark { color:#64748B; }
+</style></head><body>
+
+<!-- ============ PAGE 1: COVER ============ -->
+<section class="cover">
+  <div class="cover-tag"><span class="eyebrow">Design system · Claude Design source of truth</span></div>
+  <h1>Enterprise Insights Platform<br>Brand &amp; UI System</h1>
+  <p class="lede">A calm, data-first visual system for an agentic-AI analytics product. Built for long sessions, dense dashboards, and interpretable, trustworthy AI.</p>
+
+  <div class="pos">
+    <div>
+      <div class="k">Personality</div>
+      <div class="pill-row">
+        <span class="pill">Reliable</span><span class="pill">Interpretable</span>
+        <span class="pill">Trustworthy</span><span class="pill">Professional</span><span class="pill">Calm</span>
+      </div>
+    </div>
+    <div>
+      <div class="k">Visual tone</div>
+      <div class="pill-row">
+        <span class="pill">Clean</span><span class="pill">Data-first</span>
+        <span class="pill">Minimal ornament</span><span class="pill">High legibility</span><span class="pill">Consistent</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="primary-hero">
+    <div class="block">
+      <div class="lbl">Primary · Neural Blue</div>
+      <div class="hex tnum">#034BDC</div>
+    </div>
+    <div class="desc">The single dominant brand signal. Use for primary actions, links, active navigation, focus rings, and key highlights. Everything else stays quiet so the data leads. Dark mode lightens this to <strong style="color:#034BDC">#60A5FA</strong> to hold contrast on dark surfaces.</div>
+  </div>
+
+  <div class="pos" style="margin-top:14px; grid-template-columns:1fr 1fr 1fr;">
+    <div><div class="k">Typeface</div><div style="font-size:18px; font-weight:600;">Source Sans 3</div><div class="muted" style="font-size:12px;">One family. Weight and size carry hierarchy.</div></div>
+    <div style="border-left:1px solid #E2E8F0;"><div class="k">Modes</div><div style="font-size:14px; font-weight:600;">Light default</div><div class="muted" style="font-size:12px;">Designed dark mode, not inverted.</div></div>
+    <div style="border-left:1px solid #E2E8F0;"><div class="k">Data</div><div style="font-size:14px; font-weight:600;">Tabular numerals</div><div class="muted" style="font-size:12px;">All KPIs, tables, metrics align.</div></div>
+  </div>
+
+  <div class="footer"><span>Enterprise Insights Platform</span><span>Page 1 · Overview</span></div>
+</section>
+
+<!-- ============ PAGE 2: COLOUR — LIGHT ============ -->
+<section style="break-before:page;">
+  <div class="page-head"><div><h2 class="section-title">Colour tokens</h2></div><div class="n tnum">02</div></div>
+  <div class="section-sub">Light mode is the default. Every token has a matched dark-mode value on the next page. Pair status colours with icons and labels, never colour alone.</div>
+
+  <div class="group-label"><span class="t">Neutrals</span><span class="l"></span><span class="mode-tag">Light</span></div>
+  <div class="sw-grid"><div class="sw sw-light"><div class="sw-chip" style="background:#FFFFFF"></div><div class="sw-meta"><div class="sw-name">Background / Canvas</div><div class="sw-hex">#FFFFFF</div></div></div>
+<div class="sw sw-light"><div class="sw-chip" style="background:#F8FAFC"></div><div class="sw-meta"><div class="sw-name">Surface 1</div><div class="sw-hex">#F8FAFC</div></div></div>
+<div class="sw sw-light"><div class="sw-chip" style="background:#F1F5F9"></div><div class="sw-meta"><div class="sw-name">Surface 2</div><div class="sw-hex">#F1F5F9</div></div></div>
+<div class="sw sw-light"><div class="sw-chip" style="background:#E2E8F0"></div><div class="sw-meta"><div class="sw-name">Border / Divider</div><div class="sw-hex">#E2E8F0</div></div></div>
+<div class="sw sw-light"><div class="sw-chip" style="background:#0F172A"></div><div class="sw-meta"><div class="sw-name">Text Primary</div><div class="sw-hex">#0F172A</div></div></div>
+<div class="sw sw-light"><div class="sw-chip" style="background:#475569"></div><div class="sw-meta"><div class="sw-name">Text Secondary</div><div class="sw-hex">#475569</div></div></div>
+<div class="sw sw-light"><div class="sw-chip" style="background:#64748B"></div><div class="sw-meta"><div class="sw-name">Text Muted</div><div class="sw-hex">#64748B</div></div></div></div>
+
+  <div class="group-label"><span class="t">Brand &amp; accent</span><span class="l"></span><span class="mode-tag">Light</span></div>
+  <div class="sw-grid"><div class="sw sw-light"><div class="sw-chip" style="background:#034BDC"></div><div class="sw-meta"><div class="sw-name">Primary — Neural Blue</div><div class="sw-hex">#034BDC</div></div></div>
+<div class="sw sw-light"><div class="sw-chip" style="background:#0284C7"></div><div class="sw-meta"><div class="sw-name">Secondary Accent</div><div class="sw-hex">#0284C7</div></div></div>
+<div class="sw sw-light"><div class="sw-chip" style="background:#38BDF8"></div><div class="sw-meta"><div class="sw-name">Secondary Accent (alt)</div><div class="sw-hex">#38BDF8</div></div></div></div>
+
+  <div class="group-label"><span class="t">Semantic status</span><span class="l"></span><span class="mode-tag">Light</span></div>
+  <div class="sw-grid"><div class="sw sw-light"><div class="sw-chip" style="background:#16A34A"></div><div class="sw-meta"><div class="sw-name">Success / Confirmed</div><div class="sw-hex">#16A34A</div></div></div>
+<div class="sw sw-light"><div class="sw-chip" style="background:#D97706"></div><div class="sw-meta"><div class="sw-name">Warning / Needs review</div><div class="sw-hex">#D97706</div></div></div>
+<div class="sw sw-light"><div class="sw-chip" style="background:#DC2626"></div><div class="sw-meta"><div class="sw-name">Error / Blocked</div><div class="sw-hex">#DC2626</div></div></div>
+<div class="sw sw-light"><div class="sw-chip" style="background:#0284C7"></div><div class="sw-meta"><div class="sw-name">Info / Neutral</div><div class="sw-hex">#0284C7</div></div></div></div>
+
+  <div class="group-label"><span class="t">AI semantics · trust &amp; interpretability</span><span class="l"></span><span class="mode-tag">Light</span></div>
+  <div class="sw-grid"><div class="sw sw-light"><div class="sw-chip" style="background:#1D4ED8"></div><div class="sw-meta"><div class="sw-name">Accountability Blue</div><div class="sw-hex">#1D4ED8</div></div></div>
+<div class="sw sw-light"><div class="sw-chip" style="background:#C6F1D6"></div><div class="sw-meta"><div class="sw-name">Consent Mint</div><div class="sw-hex">#C6F1D6</div></div></div>
+<div class="sw sw-light"><div class="sw-chip" style="background:#F8F4E3"></div><div class="sw-meta"><div class="sw-name">Transparency Beige</div><div class="sw-hex">#F8F4E3</div></div></div>
+<div class="sw sw-light"><div class="sw-chip" style="background:#DADADA"></div><div class="sw-meta"><div class="sw-name">Privacy Gray</div><div class="sw-hex">#DADADA</div></div></div>
+<div class="sw sw-light"><div class="sw-chip" style="background:#F25C54"></div><div class="sw-meta"><div class="sw-name">Bias Monitor Red</div><div class="sw-hex">#F25C54</div></div></div>
+<div class="sw sw-light"><div class="sw-chip" style="background:#FFD93D"></div><div class="sw-meta"><div class="sw-name">Risk Alert Yellow</div><div class="sw-hex">#FFD93D</div></div></div></div>
+
+  <div class="footer"><span>Enterprise Insights Platform</span><span>Page 2 · Colour, light mode</span></div>
+</section>
+
+<!-- ============ PAGE 3: COLOUR — DARK ============ -->
+<section style="break-before:page; page:darkpage;">
+  <div class="frame dark">
+    <div class="page-head"><div><h2 class="section-title" style="color:#F1F5F9;">Colour tokens · dark mode</h2></div><div class="n tnum" style="color:#475569;">03</div></div>
+    <div class="section-sub" style="color:#94A3B8;">Layered dark surfaces reduce glare and build depth. Values are tuned for contrast, not inverted from light.</div>
+
+    <div class="group-label"><span class="t" style="color:#94A3B8;">Neutrals</span><span class="l" style="background:#334155;"></span><span class="mode-tag" style="color:#94A3B8; border-color:#475569;">Dark</span></div>
+    <div class="sw-grid"><div class="sw sw-dark"><div class="sw-chip" style="background:#0F172A"></div><div class="sw-meta"><div class="sw-name">Background / Canvas</div><div class="sw-hex">#0F172A</div></div></div>
+<div class="sw sw-dark"><div class="sw-chip" style="background:#1E293B"></div><div class="sw-meta"><div class="sw-name">Surface 1</div><div class="sw-hex">#1E293B</div></div></div>
+<div class="sw sw-dark"><div class="sw-chip" style="background:#334155"></div><div class="sw-meta"><div class="sw-name">Surface 2</div><div class="sw-hex">#334155</div></div></div>
+<div class="sw sw-dark"><div class="sw-chip" style="background:#475569"></div><div class="sw-meta"><div class="sw-name">Border / Divider</div><div class="sw-hex">#475569</div></div></div>
+<div class="sw sw-dark"><div class="sw-chip" style="background:#F1F5F9"></div><div class="sw-meta"><div class="sw-name">Text Primary</div><div class="sw-hex">#F1F5F9</div></div></div>
+<div class="sw sw-dark"><div class="sw-chip" style="background:#94A3B8"></div><div class="sw-meta"><div class="sw-name">Text Secondary</div><div class="sw-hex">#94A3B8</div></div></div>
+<div class="sw sw-dark"><div class="sw-chip" style="background:#64748B"></div><div class="sw-meta"><div class="sw-name">Text Muted</div><div class="sw-hex">#64748B</div></div></div></div>
+
+    <div class="group-label"><span class="t" style="color:#94A3B8;">Brand &amp; accent</span><span class="l" style="background:#334155;"></span><span class="mode-tag" style="color:#94A3B8; border-color:#475569;">Dark</span></div>
+    <div class="sw-grid"><div class="sw sw-dark"><div class="sw-chip" style="background:#60A5FA"></div><div class="sw-meta"><div class="sw-name">Primary</div><div class="sw-hex">#60A5FA</div></div></div>
+<div class="sw sw-dark"><div class="sw-chip" style="background:#38BDF8"></div><div class="sw-meta"><div class="sw-name">Secondary Accent</div><div class="sw-hex">#38BDF8</div></div></div></div>
+
+    <div class="group-label"><span class="t" style="color:#94A3B8;">Semantic status</span><span class="l" style="background:#334155;"></span><span class="mode-tag" style="color:#94A3B8; border-color:#475569;">Dark</span></div>
+    <div class="sw-grid"><div class="sw sw-dark"><div class="sw-chip" style="background:#4ADE80"></div><div class="sw-meta"><div class="sw-name">Success / Confirmed</div><div class="sw-hex">#4ADE80</div></div></div>
+<div class="sw sw-dark"><div class="sw-chip" style="background:#FBBF24"></div><div class="sw-meta"><div class="sw-name">Warning / Needs review</div><div class="sw-hex">#FBBF24</div></div></div>
+<div class="sw sw-dark"><div class="sw-chip" style="background:#F87171"></div><div class="sw-meta"><div class="sw-name">Error / Blocked</div><div class="sw-hex">#F87171</div></div></div>
+<div class="sw sw-dark"><div class="sw-chip" style="background:#38BDF8"></div><div class="sw-meta"><div class="sw-name">Info / Neutral</div><div class="sw-hex">#38BDF8</div></div></div></div>
+
+    <div class="group-label"><span class="t" style="color:#94A3B8;">AI semantics</span><span class="l" style="background:#334155;"></span><span class="mode-tag" style="color:#94A3B8; border-color:#475569;">Dark</span></div>
+    <div class="sw-grid"><div class="sw sw-dark"><div class="sw-chip" style="background:#60A5FA"></div><div class="sw-meta"><div class="sw-name">Accountability Blue</div><div class="sw-hex">#60A5FA</div></div></div>
+<div class="sw sw-dark"><div class="sw-chip" style="background:#86EFAC"></div><div class="sw-meta"><div class="sw-name">Consent Mint</div><div class="sw-hex">#86EFAC</div></div></div>
+<div class="sw sw-dark"><div class="sw-chip" style="background:#F5F5F4"></div><div class="sw-meta"><div class="sw-name">Transparency Beige</div><div class="sw-hex">#F5F5F4</div></div></div>
+<div class="sw sw-dark"><div class="sw-chip" style="background:#9CA3AF"></div><div class="sw-meta"><div class="sw-name">Privacy Gray</div><div class="sw-hex">#9CA3AF</div></div></div>
+<div class="sw sw-dark"><div class="sw-chip" style="background:#F87171"></div><div class="sw-meta"><div class="sw-name">Bias Monitor Red</div><div class="sw-hex">#F87171</div></div></div>
+<div class="sw sw-dark"><div class="sw-chip" style="background:#FBBF24"></div><div class="sw-meta"><div class="sw-name">Risk Alert Yellow</div><div class="sw-hex">#FBBF24</div></div></div></div>
+
+    <div class="footer dark"><span>Enterprise Insights Platform</span><span>Page 3 · Colour, dark mode</span></div>
+  </div>
+</section>
+
+<!-- ============ PAGE 4: TYPOGRAPHY ============ -->
+<section style="break-before:page;">
+  <div class="page-head"><div><h2 class="section-title">Typography</h2></div><div class="n tnum">04</div></div>
+  <div class="section-sub">Source Sans 3 throughout. Hierarchy comes from weight and size, not a second family. Line-height 1.4–1.6 for dense content.</div>
+
+  <div class="type-row"><div class="meta"><div class="role">Display / H1</div><div class="spec tnum">32px · Semibold 600</div></div><div class="sample" style="font-size:32px; font-weight:600; line-height:1.15;">Insights that explain themselves</div></div>
+  <div class="type-row"><div class="meta"><div class="role">H2</div><div class="spec tnum">24px · Semibold 600</div></div><div class="sample" style="font-size:24px; font-weight:600;">Agent activity this week</div></div>
+  <div class="type-row"><div class="meta"><div class="role">H3</div><div class="spec tnum">20px · Semibold 600</div></div><div class="sample" style="font-size:20px; font-weight:600;">Confidence and data quality</div></div>
+  <div class="type-row"><div class="meta"><div class="role">Body Large</div><div class="spec tnum">16px · Regular 400</div></div><div class="sample" style="font-size:16px;">The agent reviewed 48,210 records and flagged three segments for human review.</div></div>
+  <div class="type-row"><div class="meta"><div class="role">Body Default</div><div class="spec tnum">14px · Regular 400</div></div><div class="sample" style="font-size:14px;">Confidence dropped below the review threshold on two data sources. Open the lineage panel to see why.</div></div>
+  <div class="type-row"><div class="meta"><div class="role">Caption / Label</div><div class="spec tnum">12px · Medium 500</div></div><div class="sample" style="font-size:12px; font-weight:500; color:#475569;">LAST UPDATED · 4 AUG 2026, 09:42</div></div>
+  <div class="type-row" style="border-bottom:0;"><div class="meta"><div class="role">Data / Table</div><div class="spec tnum">13px · Regular · tabular</div></div><div class="sample tnum" style="font-size:13px;">1,204,880 &nbsp; 98.6% &nbsp; +12.4 &nbsp; −0.37 &nbsp; 0001 · 0010 · 0100</div></div>
+
+  <div class="figs">
+    <div style="font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:#64748B; margin-bottom:8px;">Tabular figures keep columns aligned</div>
+    <div class="row"><span>Revenue, EMEA</span><span class="tnum">$1,204,880.00</span></div>
+    <div class="row"><span>Revenue, APAC</span><span class="tnum">$   98,640.50</span></div>
+    <div class="row"><span>Revenue, Americas</span><span class="tnum">$2,011,375.20</span></div>
+  </div>
+
+  <div class="footer"><span>Enterprise Insights Platform</span><span>Page 4 · Typography</span></div>
+</section>
+
+<!-- ============ PAGE 5: SAMPLE UI — LIGHT ============ -->
+<section style="break-before:page;">
+  <div class="page-head"><div><span class="demo-tag l">Real example · in use</span><div class="demo-h">Sample dashboard — light mode</div></div><div class="n tnum">05</div></div>
+
+  <div class="appbar card-l">
+    <div class="brand"><span class="dot" style="background:#034BDC;"></span>Insight Agent</div>
+    <div class="right">
+      <span class="themetag" style="background:#F1F5F9; color:#475569; border:1px solid #E2E8F0;">Theme · Light</span>
+      <span class="btn btn-ghost-l">Export</span>
+      <span class="btn btn-primary-l">Run analysis</span>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="card card-l"><div class="kpi-label muted">Records analysed</div><div class="kpi-num tnum">48,210</div><div class="delta" style="color:#16A34A;">▲ 12.4% vs last run</div></div>
+    <div class="card card-l"><div class="kpi-label muted">Mean confidence</div><div class="kpi-num tnum">98.6%</div><div class="delta" style="color:#D97706;">▼ 0.4% needs review</div></div>
+    <div class="card card-l"><div class="kpi-label muted">Blocked tasks</div><div class="kpi-num tnum">3</div><div class="delta" style="color:#DC2626;">2 permission · 1 pipeline</div></div>
+  </div>
+
+  <div class="panel panel-l">
+    <div class="panel-head panel-head-l">Segment breakdown</div>
+    <table>
+      <thead><tr><th class="th-l">Segment</th><th class="th-l num">Records</th><th class="th-l num">Confidence</th><th class="th-l">Status</th></tr></thead>
+      <tbody>
+        <tr class="tr-l"><td>Enterprise · EMEA</td><td class="num tnum">18,402</td><td class="num tnum">99.1%</td><td><span class="chip" style="background:#DCFCE7; color:#166534;"><span class="cd" style="background:#16A34A;"></span>Confirmed</span></td></tr>
+        <tr class="tr-l"><td>Mid-market · APAC</td><td class="num tnum">12,880</td><td class="num tnum">94.2%</td><td><span class="chip" style="background:#FEF3C7; color:#92400E;"><span class="cd" style="background:#D97706;"></span>Needs review</span></td></tr>
+        <tr class="tr-l"><td>SMB · Americas</td><td class="num tnum">16,928</td><td class="num tnum">72.5%</td><td><span class="chip" style="background:#FEE2E2; color:#991B1B;"><span class="cd" style="background:#DC2626;"></span>Blocked</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ai-strip">
+    <div class="ai-note" style="background:#F8F4E3; border:1px solid #EADFB8; color:#4A4128;">
+      <strong style="color:#1D4ED8;">How this was generated.</strong> The agent joined three sources and weighted recent records higher. Two sources fell below the confidence threshold, so those rows are flagged rather than auto-approved.
+      <div style="margin-top:8px; display:flex; gap:8px; flex-wrap:wrap;">
+        <span class="chip" style="background:#fff; color:#1D4ED8; border:1px solid #C7D2FE;"><span class="cd" style="background:#1D4ED8;"></span>Accountability · audit trail</span>
+        <span class="chip" style="background:#C6F1D6; color:#166534;"><span class="cd" style="background:#16A34A;"></span>Consent · opt-in</span>
+        <span class="chip" style="background:#DADADA; color:#334155;"><span class="cd" style="background:#64748B;"></span>Privacy · contains PII</span>
+      </div>
+    </div>
+    <div class="ai-flags">
+      <div class="flag" style="background:#FFF7DB; color:#7A5B00;"><span class="fdot" style="background:#FFD93D;"></span>Risk · review recommended</div>
+      <div class="flag" style="background:#FDE7E5; color:#8A2A22;"><span class="fdot" style="background:#F25C54;"></span>Bias monitor · fairness flag on APAC</div>
+      <div class="flag" style="background:#E0F2FE; color:#075985;"><span class="fdot" style="background:#0284C7;"></span>Info · 2 non-blocking notices</div>
+    </div>
+  </div>
+
+  <div class="comp-row">
+    <span class="input input-l">Search segments…</span>
+    <span class="btn btn-primary-l">Primary</span>
+    <span class="btn btn-ghost-l">Secondary</span>
+    <span class="chip" style="background:#E0F2FE; color:#075985;"><span class="cd" style="background:#0284C7;"></span>Info</span>
+  </div>
+
+  <div class="footer"><span>Enterprise Insights Platform</span><span>Page 5 · Sample UI, light</span></div>
+</section>
+
+<!-- ============ PAGE 6: SAMPLE UI — DARK ============ -->
+<section style="break-before:page; page:darkpage;">
+  <div class="frame dark">
+    <div class="page-head"><div><span class="demo-tag d">Real example · in use</span><div class="demo-h dark">Sample dashboard — dark mode</div></div><div class="n tnum" style="color:#475569;">06</div></div>
+
+    <div class="appbar card-d">
+      <div class="brand" style="color:#F1F5F9;"><span class="dot" style="background:#60A5FA;"></span>Insight Agent</div>
+      <div class="right">
+        <span class="themetag" style="background:#334155; color:#94A3B8; border:1px solid #475569;">Theme · Dark</span>
+        <span class="btn btn-ghost-d">Export</span>
+        <span class="btn btn-primary-d">Run analysis</span>
+      </div>
+    </div>
+
+    <div class="kpis">
+      <div class="card card-d"><div class="kpi-label" style="color:#94A3B8;">Records analysed</div><div class="kpi-num tnum" style="color:#F1F5F9;">48,210</div><div class="delta" style="color:#4ADE80;">▲ 12.4% vs last run</div></div>
+      <div class="card card-d"><div class="kpi-label" style="color:#94A3B8;">Mean confidence</div><div class="kpi-num tnum" style="color:#F1F5F9;">98.6%</div><div class="delta" style="color:#FBBF24;">▼ 0.4% needs review</div></div>
+      <div class="card card-d"><div class="kpi-label" style="color:#94A3B8;">Blocked tasks</div><div class="kpi-num tnum" style="color:#F1F5F9;">3</div><div class="delta" style="color:#F87171;">2 permission · 1 pipeline</div></div>
+    </div>
+
+    <div class="panel panel-d">
+      <div class="panel-head panel-head-d" style="color:#F1F5F9;">Segment breakdown</div>
+      <table>
+        <thead><tr><th class="th-d">Segment</th><th class="th-d num">Records</th><th class="th-d num">Confidence</th><th class="th-d">Status</th></tr></thead>
+        <tbody>
+          <tr class="tr-d"><td>Enterprise · EMEA</td><td class="num tnum">18,402</td><td class="num tnum">99.1%</td><td><span class="chip" style="background:rgba(74,222,128,.15); color:#4ADE80;"><span class="cd" style="background:#4ADE80;"></span>Confirmed</span></td></tr>
+          <tr class="tr-d"><td>Mid-market · APAC</td><td class="num tnum">12,880</td><td class="num tnum">94.2%</td><td><span class="chip" style="background:rgba(251,191,36,.15); color:#FBBF24;"><span class="cd" style="background:#FBBF24;"></span>Needs review</span></td></tr>
+          <tr class="tr-d"><td>SMB · Americas</td><td class="num tnum">16,928</td><td class="num tnum">72.5%</td><td><span class="chip" style="background:rgba(248,113,113,.15); color:#F87171;"><span class="cd" style="background:#F87171;"></span>Blocked</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ai-strip">
+      <div class="ai-note" style="background:#1E293B; border:1px solid #334155; color:#CBD5E1;">
+        <strong style="color:#60A5FA;">How this was generated.</strong> The agent joined three sources and weighted recent records higher. Two sources fell below the confidence threshold, so those rows are flagged rather than auto-approved.
+        <div style="margin-top:8px; display:flex; gap:8px; flex-wrap:wrap;">
+          <span class="chip" style="background:rgba(96,165,250,.15); color:#60A5FA;"><span class="cd" style="background:#60A5FA;"></span>Accountability · audit trail</span>
+          <span class="chip" style="background:rgba(134,239,172,.16); color:#86EFAC;"><span class="cd" style="background:#86EFAC;"></span>Consent · opt-in</span>
+          <span class="chip" style="background:rgba(156,163,175,.18); color:#CBD5E1;"><span class="cd" style="background:#9CA3AF;"></span>Privacy · contains PII</span>
+        </div>
+      </div>
+      <div class="ai-flags">
+        <div class="flag" style="background:rgba(251,191,36,.14); color:#FBBF24;"><span class="fdot" style="background:#FBBF24;"></span>Risk · review recommended</div>
+        <div class="flag" style="background:rgba(248,113,113,.14); color:#F87171;"><span class="fdot" style="background:#F87171;"></span>Bias monitor · fairness flag on APAC</div>
+        <div class="flag" style="background:rgba(56,189,248,.14); color:#38BDF8;"><span class="fdot" style="background:#38BDF8;"></span>Info · 2 non-blocking notices</div>
+      </div>
+    </div>
+
+    <div class="comp-row">
+      <span class="input input-d">Search segments…</span>
+      <span class="btn btn-primary-d">Primary</span>
+      <span class="btn btn-ghost-d">Secondary</span>
+      <span class="chip" style="background:rgba(56,189,248,.15); color:#38BDF8;"><span class="cd" style="background:#38BDF8;"></span>Info</span>
+    </div>
+
+    <div class="footer dark"><span>Enterprise Insights Platform</span><span>Page 6 · Sample UI, dark</span></div>
+  </div>
+</section>
+
+</body></html>
