@@ -1,0 +1,96 @@
+<!-- @dsCard group="Blue Insights" viewport="1440x820" name="FY26 Revenue — dashboard + Research sidekick" subtitle="The signature Blue Insights product view" -->
+<!-- @startingPoint section="Blue Insights" subtitle="Insights dashboard with agentic Research sidekick" viewport="1440x900" -->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Blue Insights — FY26 Revenue</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{font-family:var(--font-sans);background:var(--color-canvas);color:var(--color-text-primary)}
+  #root{height:100vh;display:flex;flex-direction:column}
+  a{color:var(--color-primary)}a:hover{color:var(--color-primary-hover)}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel" src="./RevenueChart.jsx"></script>
+<script type="text/babel" src="./Sidekick.jsx"></script>
+</head>
+<body><div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+const DS = window.TomoroDesignSystem_e2b93e;
+const { AppBar, IconButton, Button, KpiCard, Modal, Checkbox, Alert } = DS;
+
+const Refresh = () => <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>;
+const Moon = () => <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>;
+const Sun = () => <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>;
+const Sidekick = window.Sidekick, RevenueChart = window.RevenueChart;
+
+function App(){
+  const [theme,setTheme] = useState('light');
+  const [panel,setPanel] = useState('answer');   // 'answer' | 'loading' | 'preview' | 'collapsed'
+  const [previewId,setPreviewId] = useState(1);
+  const [assumptionOpen,setAssumptionOpen] = useState(false);
+  const [share,setShare] = useState(false);
+  const [reviewed,setReviewed] = useState(false);
+
+  const explain = () => { setPanel('loading'); setTimeout(()=>setPanel('answer'), 1800); };
+  const preview = (id) => { setPreviewId(id); setPanel('preview'); };
+
+  return (
+    <div data-theme={theme} style={{height:'100%',display:'flex',flexDirection:'column',background:'var(--color-canvas)'}}>
+      <AppBar product="Blue Insights" breadcrumb="FY26 Revenue" initials="AM"
+        right={<>
+          <IconButton label="Reset demo" onClick={()=>{setPanel('answer');setAssumptionOpen(false);}}><Refresh/></IconButton>
+          <IconButton label={theme==='light'?'Dark':'Light'} onClick={()=>setTheme(theme==='light'?'dark':'light')}>{theme==='light'?<Moon/>:<Sun/>}</IconButton>
+        </>}/>
+
+      <div style={{flex:1,display:'flex',minHeight:0}}>
+        {/* main dashboard */}
+        <main style={{flex:1,overflowY:'auto',padding:'40px 48px'}}>
+          <div style={{maxWidth:1180,margin:'0 auto'}}>
+            <div style={{display:'flex',alignItems:'flex-start',justifyContent:'space-between',marginBottom:28}}>
+              <div><div style={{fontSize:26,fontWeight:600}}>Revenue by quarter</div><div style={{fontSize:15,color:'var(--color-text-muted)',marginTop:4}}>Fiscal year 2026 · consolidated · USD</div></div>
+              <div style={{textAlign:'right'}}><div style={{fontSize:26,fontWeight:700,fontFeatureSettings:"'tnum' 1"}}>$35.30M</div><div style={{fontSize:14,color:'var(--color-text-muted)'}}>FY to date</div></div>
+            </div>
+            <RevenueChart onExplain={explain}/>
+            <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:16,marginTop:20}}>
+              <KpiCard label="QoQ growth" value="−12.0%" deltaTone="negative"/>
+              <KpiCard label="YoY growth" value="+6.2%"/>
+              <KpiCard label="Net retention" value="104%"/>
+            </div>
+            {panel==='collapsed' ? (
+              <div style={{marginTop:24}}><Button variant="secondary" onClick={()=>setPanel('answer')}>Open Research sidekick</Button></div>
+            ) : null}
+          </div>
+        </main>
+
+        {panel!=='collapsed' ? (
+          <Sidekick
+            mode={panel} previewId={previewId}
+            onShare={()=>{setShare(true);setReviewed(false);}}
+            onCollapse={()=>setPanel('collapsed')}
+            onPreview={preview} onBack={()=>setPanel('answer')}
+            expandedAssumption={assumptionOpen}
+            onExpandAssumption={()=>setAssumptionOpen(!assumptionOpen)}
+            onRerunAssumption={()=>{setAssumptionOpen(false);explain();}}
+          />
+        ) : null}
+      </div>
+
+      {share ? (
+        <Modal title="Review before sharing" subtitle="Nothing is exported until you confirm." onClose={()=>setShare(false)}
+          footer={<><Button variant="ghost" onClick={()=>setShare(false)}>Cancel</Button><Button disabled={!reviewed}>Copy / share</Button></>}>
+          <div style={{fontSize:11,fontWeight:600,letterSpacing:'.08em',textTransform:'uppercase',color:'var(--color-text-muted)',marginBottom:10}}>Summary to share — edit as needed</div>
+          <textarea rows={4} defaultValue="Q3 revenue fell 12% QoQ, concentrated in EMEA enterprise from delayed renewals. 12 accounts pushed to Q4; new-business bookings flat."
+            style={{width:'100%',boxSizing:'border-box',resize:'vertical',border:'1px solid var(--color-border)',borderRadius:'var(--radius-md)',padding:12,fontFamily:'var(--font-sans)',fontSize:13,lineHeight:1.5,color:'var(--color-text-primary)',background:'var(--color-canvas)',outline:'none'}}/>
+          <div style={{margin:'16px 0'}}><Alert tone="warning" title="Review before sharing — 1 sensitive figure">12%</Alert></div>
+          <Checkbox checked={reviewed} onChange={e=>setReviewed(e.target.checked)} boxed label="I've reviewed this and the figures are OK to share"/>
+        </Modal>
+      ) : null}
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>
